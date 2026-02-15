@@ -26,7 +26,7 @@ _class_map = None
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.environ.get(
     "HAR_MODEL_PATH",
-    os.path.join(BASE_DIR, "model", "har_model.h5"),
+    os.path.join(BASE_DIR, "model", "best_har_model.h5"),
 )
 SCALER_PATH = os.environ.get(
     "HAR_SCALER_PATH",

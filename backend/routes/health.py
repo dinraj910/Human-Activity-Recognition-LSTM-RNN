@@ -22,7 +22,7 @@ def health():
     Returns server status and whether required model files are present.
     """
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    model_path = os.path.join(base, "model", "har_model.h5")
+    model_path = os.path.join(base, "model", "best_har_model.h5")
     scaler_path = os.path.join(base, "model", "scaler.pkl")
 
     model_ready = os.path.exists(model_path)
