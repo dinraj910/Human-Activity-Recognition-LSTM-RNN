@@ -6,7 +6,7 @@ export default defineConfig({
     server: {
         port: 3000,
         host: true,          // Expose on all network interfaces (0.0.0.0)
-        allowedHosts: 'all', // Accept connections from ngrok / tunnel domains
+        allowedHosts: ['f3d7-2401-4900-9672-e50e-8941-4756-1b21-543.ngrok-free.app', '.ngrok-free.app', '.ngrok.io'], // Accept connections from ngrok / tunnel domains
         proxy: {
             '/predict': {
                 target: 'http://localhost:5000',
