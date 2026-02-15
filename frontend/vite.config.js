@@ -5,6 +5,8 @@ export default defineConfig({
     plugins: [react()],
     server: {
         port: 3000,
+        host: true,          // Expose on all network interfaces (0.0.0.0)
+        allowedHosts: 'all', // Accept connections from ngrok / tunnel domains
         proxy: {
             '/predict': {
                 target: 'http://localhost:5000',
