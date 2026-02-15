@@ -1,0 +1,45 @@
+# ──────────────────────────────────────────────────────────────
+# docker-compose.yml — HAR Full-Stack Application
+# ──────────────────────────────────────────────────────────────
+# Usage:
+#   docker-compose up --build
+#
+# Services:
+#   - backend:  Flask API on port 5000
+#   - frontend: Vite dev server on port 3000 (production: nginx)
+# ──────────────────────────────────────────────────────────────
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: har-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_DEBUG=false
+      - CORS_ORIGINS=http://localhost:3000
+      - LAZY_LOAD=false
+    volumes:
+      - ./backend/model:/app/model:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: har-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
